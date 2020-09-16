@@ -19,6 +19,9 @@ _Puede ejecutar la aplicación desde un IDE(en entorno de desarrollo) o bien gen
 ##### Usuario: (Carlos, 12345)
 _Cabe resaltar que la cuenta de Administrador es la única que tiene control total sobre toda la aplicación y sus funciones._
 
+## Datos
+_La aplicación por defecto incluye un import.sql con algunos datos de prueba para poder utilizarla apenas sea instalada._
+
 ## Licencia
 #### &copy; Carlos Martínez - 2020
 Java & Angular Developer.
