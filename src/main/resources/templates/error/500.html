@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title th:text="'Oops'"></title>
+		<link rel="stylesheet"
+			th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet"
+			th:href="@{/css/main.css}">
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Spring Boot CRUD</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Clientes</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<br />
+		<br />
+		<br />
+		<div class="container">
+			<div class="row">
+				<img th:src="@{/images/500.png}" class="col-md-6 offset-3 500-img"/>
+			</div>
+		</div>
+		<h3 th:text="'Oops! Ha ocurrido un error, estamos trabajando para solucionarlo'" class="text-primary text-center"></h3>
+		
+	</body>
+</html>

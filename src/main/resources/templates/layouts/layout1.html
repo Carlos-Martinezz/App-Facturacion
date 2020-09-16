@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title th:text="'Spring Boot: Thymeleaf + JPA | ' + ${titulo}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+<link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">App Facturación</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link" th:href="@{/form}"
+						th:text="#{text.navbar.crearCliente}">Crear Cliente</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}"
+						th:text="#{text.navbar.clientes}">Clientes</a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a
+						class="btn btn-outline-primary" th:href="@{/login}"
+						th:text="#{text.navbar.iniciarSesion}">Iniciar Sesión</a></li>
+					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
+						class="btn btn-outline-primary dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+								<button class="dropdown-item"
+									onclick="document.getElementById('logoutForm').submit();"
+									type="submit" th:text="#{text.navbar.cerrarSesion}">Cerrar
+									Sesión</button>
+							</form>
+						</div></li>
+				</ul>
+				<ul class="navbar-nav navbar-right mx-4">
+					<li class="nav-iten mx-1"><a class="btn btn-outline-success"
+						th:href="@{/locale(lang=es_ES)}">ES</a></li>
+					<li class="nav-iten mx-1"><a class="btn btn-outline-success"
+						th:href="@{/locale(lang=en_US)}">EN</a></li>
+					<li class="nav-iten mx-1"><a class="btn btn-outline-success"
+						th:href="@{/locale(lang=de_DE)}">DE</a></li>
+					<!--<li class="nav-item dropdown show mx-4"><a
+						class="btn btn-outline-primary dropdown-toggle" href="#"
+						role="button" id="dropdownLenguaje" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							th:text="#{text.locale.language}"></span></a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" th:href="@{/locale(lang=es_ES)}"
+								th:text="#{text.locale.es}">ES</a> <a class="dropdown-item"
+								th:href="@{/locale(lang=en_US)}" th:text="#{text.locale.en}">EN</a>
+							<a class="dropdown-item" th:href="@{/locale(lang=de_DE)}"
+								th:text="#{text.locale.de}">DE</a>
+						</div></li>-->
+				</ul>
+			</div>
+		</nav>
+		<br />
+		<div class="col-md-4 offset-4">
+			<div class="alert alert-success" th:if="${success != null}"
+				th:text="${success}"></div>
+			<div class="alert alert-danger" th:if="${error != null}"
+				th:text="${error}"></div>
+			<div class="alert alert-warning" th:if="${warning != null}"
+				th:text="${warning}"></div>
+			<div class="alert alert-info" th:if="${info != null}"
+				th:text="${info}"></div>
+		</div>
+	</header>
+	<footer th:fragment="footer" class="container">
+		<br /> <br /> <br />
+		<hr />
+		<div class="row">
+			<div class="col-sm-6 ">
+				<p class="centrar" th:text="'App Facturación'"></p>
+			</div>
+			<div class="col-sm-6">
+				<p class="centrar">&copy; Carlos Martínez - 2020</p>
+			</div>
+			<div class="col-sm-12">
+				<p class="centrar" sec:authorize="isAuthenticated()">
+					<b><span th:text="#{text.footer.usuario}"></span>:</b> <span
+						sec:authentication="name"></span> | <b><span
+						th:text="#{text.footer.roles}"></span>: </b> <span
+						sec:authentication="principal.authorities"></span>
+				</p>
+			</div>
+		</div>
+		<br /> <br />
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/popper.js}"></script>
+		<script th:src="@{/js/bootstrap.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+	</footer>
+</body>
+</html>

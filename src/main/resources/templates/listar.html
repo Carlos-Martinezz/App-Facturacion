@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="layouts/layout1 :: head"></head>
+	<body>
+		<header th:replace="layouts/layout1 :: header"></header>
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header" th:text="${titulo}"></div>
+				<div class="card-body">
+					<h4 class="card-title">
+						<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}" class="btn btn-primary" th:text="#{text.paginador.boton}">Crear Cliente</a>
+						<a class="mx-1 btn btn-success btn-xs float-right" th:href="@{'/listar'(format=csv)}">CSV</a>
+						<a class="mx-1 btn btn-outline-success btn-xs float-right" target="_BLANK" th:href="@{'/listar'(format=xml)}">XML</a>
+						<a class="mx-1 btn btn-outline-warning btn-xs float-right" target="_BLANK" th:href="@{'/listar'(format=json)}">JSON</a>
+					</h4>
+					<table class="table table-striped">
+						<thead class="table-dark">
+							<tr>
+								<th sec:authorize="hasRole('ROLE_USER')" th:attr="title=#{text.paginator.verCliente}">ID</th>
+								<th th:text="#{text.paginador.nombre}">Nombre</th>
+								<th th:text="#{text.paginador.apellido}">Apellido</th>
+								<th th:text="#{text.paginador.email}">E-Mail</th>
+								<th th:utext="#{text.paginador.createAt}">Fecha</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.paginador.factura}">Factura</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.paginador.opciones}">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${clientes}">
+								<td sec:authorize="hasRole('ROLE_USER')"><a class="btn btn-primary btn-xs" th:href="@{/ver/} + ${c.id}" th:text="${c.id}" th:attr="title=#{text.paginator.verCliente}"></a></td>
+								<td th:text="${c.nombre}"></td>
+								<td th:text="${c.apellido}"></td>
+								<td th:text="${c.email}"></td>
+								<td th:text="${c.createAt}"></td>
+								<td sec:authorize="hasRole('ROLE_ADMIN')">
+									<a class="btn btn-success" th:href="@{/factura/form/} + ${c.id}" th:text="#{text.paginador.crearFactura}">Crear Factura</a>
+								</td>
+								<td sec:authorize="hasRole('ROLE_ADMIN')">
+									<a class="btn btn-primary" th:href="@{/form/} + ${c.id}" th:text="#{text.paginador.editar}">Editar</a>
+									<a class="btn btn-danger" th:href="@{/eliminar/} + ${c.id}" th:text="#{text.paginador.eliminar}">Eliminar</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<nav th:replace="paginator-nav :: paginator"></nav>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="layouts/layout1 :: footer"></footer>
+	</body>
+</html>
